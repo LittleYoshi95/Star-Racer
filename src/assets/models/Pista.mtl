@@ -1,0 +1,64 @@
+newmtl scHighASG
+illum 4
+Kd 1.00 1.00 1.00
+Ka 0.59 0.59 0.59
+Tf 1.00 1.00 1.00
+map_Kd scHighA.jpg
+bump scHighA_normal.tif -bm 0.3
+Ni 1.00
+Ks 0.00 0.00 0.00
+map_Ks scHighA_specular.jpg
+Ns 0.50
+newmtl scHighway_GateD05SG
+illum 4
+Kd 1.00 0.86 0.29
+Ka 1.00 0.86 0.29
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.00 0.00 0.00
+Ns 0.00
+newmtl twallESG
+illum 4
+Kd 1.00 1.00 1.00
+Ka 0.59 0.59 0.59
+Tf 1.00 1.00 1.00
+map_Kd twallE.jpg
+Ni 1.00
+Ks 0.00 0.00 0.00
+Ns 0.00
+newmtl twallGSG
+illum 4
+Kd 1.00 1.00 1.00
+Ka 0.59 0.59 0.59
+Tf 1.00 1.00 1.00
+map_Kd twallG.jpg
+Ni 1.00
+Ks 0.00 0.00 0.00
+Ns 0.00
+newmtl twallMSG
+illum 4
+Kd 1.00 1.00 1.00
+Ka 0.59 0.59 0.59
+Tf 1.00 1.00 1.00
+map_Kd twallM.jpg
+Ni 1.00
+Ks 0.00 0.00 0.00
+Ns 0.00
+newmtl twallSSG
+illum 4
+Kd 1.00 1.00 1.00
+Ka 0.59 0.59 0.59
+Tf 1.00 1.00 1.00
+map_Kd twallS.jpg
+Ni 1.00
+Ks 0.00 0.00 0.00
+Ns 0.00
+newmtl twallWSG
+illum 4
+Kd 1.00 1.00 1.00
+Ka 0.59 0.59 0.59
+Tf 1.00 1.00 1.00
+map_Kd twallW.jpg
+Ni 1.00
+Ks 0.00 0.00 0.00
+Ns 0.00

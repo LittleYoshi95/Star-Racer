@@ -1,0 +1,57 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <title>xd-Racer</title>
+
+    <!--Meta Tags-->
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://fonts.googleapis.com/css?family=Faster+One" rel="stylesheet"> 
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/styles.css">
+
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/three.min.js"></script>
+    <script src="/js/three-fbx-loader.js"></script>
+    <script src="/js/three-obj-mtl-loader.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/client_world.js"></script>
+    <script src="/js/socket.io.js"></script>
+   
+  </head>
+  <body id="game">
+     
+    <div id="container"/>
+
+    <audio autoplay>
+      <source src="./assets/M.O.O.N.- Hydrogen.mp3">
+    </audio>
+
+    <script type="application/x-glsl" id="sky-vertex">  
+      varying vec2 vUV;
+      
+      void main() {  
+        vUV = uv;
+        vec4 pos = vec4(position, 1.0);
+        gl_Position = projectionMatrix * modelViewMatrix * pos;
+      }
+      </script>
+      
+      <script type="application/x-glsl" id="sky-fragment">  
+      uniform sampler2D texture;  
+      varying vec2 vUV;
+      
+      void main() {  
+        vec4 sample = texture2D(texture, vUV);
+        gl_FragColor = vec4(sample.xyz, sample.w);
+      }
+      </script>  
+
+      
+    
+  </body>
+</html>
