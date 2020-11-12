@@ -1,160 +1,160 @@
 //Variables
-$bg-img : url('../assets/sci-fi1.jpg');
-$canvas-size-img : url('../assets/BlueFalconX.jpg');
+$bg-img: url("../assets/sci-fi1.jpg");
+$canvas-size-img: url("../assets/BlueFalconX.jpg");
 
 $theme-colors: (
-    "primary": #d95700
+	"primary": #420099,
 );
 
-body html{
-    margin: 0;
-    padding: 0;
+body html {
+	margin: 0;
+	padding: 0;
 }
 
-#game{
-    margin: 0;
-    overflow: hidden; 
+#game {
+	margin: 0;
+	overflow: hidden;
 }
 
-
-.backgroundimg{
-    background-image: $bg-img;
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
-    height: 100vh;
-    width: 100%;
+.backgroundimg {
+	background-image: $bg-img;
+	background-size: cover;
+	background-position: center center;
+	background-repeat: no-repeat;
+	height: 100vh;
+	width: 100%;
 }
 
-
-.playBtn{
-    position: absolute;
-    font-family: 'Faster One', cursive;
-    width: 19%;
-    top: 50%;
-    left: 40%;
-    transform: translateY(-50%);
+.playBtn {
+	position: absolute;
+	font-family: "Faster One", cursive;
+	width: 19%;
+	top: 50%;
+	left: 40%;
+	transform: translateY(-50%);
 }
-.optionsBtn{
-    position: absolute;
-    font-family: 'Faster One', cursive;
-    width: 19%;
-    top: 60%;
-    left: 40%;
-    transform: translateY(-50%);
+.optionsBtn {
+	position: absolute;
+	font-family: "Faster One", cursive;
+	width: 19%;
+	top: 60%;
+	left: 40%;
+	transform: translateY(-50%);
 }
-.leaderboardBtn{
-    position: absolute;
-    font-family: 'Faster One', cursive;
-    width: 19%;
-    top: 70%;
-    left: 40%;
-    transform: translateY(-50%);
+.leaderboardBtn {
+	position: absolute;
+	font-family: "Faster One", cursive;
+	width: 19%;
+	top: 70%;
+	left: 40%;
+	transform: translateY(-50%);
 }
-.soloBtn{
-    position: absolute;
-    font-family: 'Faster One', cursive;
-    width: 19%;
-    top: 80%;
-    left: 40%;
-    transform: translateY(-50%);
+.soloBtn {
+	position: absolute;
+	font-family: "Faster One", cursive;
+	width: 19%;
+	top: 80%;
+	left: 40%;
+	transform: translateY(-50%);
 }
-.multiplayerBtn{
-    position: absolute;
-    font-family: 'Faster One', cursive;
-    width: 19%;
-    top: 94%;
-    left: 40%;
-    transform: translateY(-50%);
+.multiplayerBtn {
+	position: absolute;
+	font-family: "Faster One", cursive;
+	width: 19%;
+	top: 94%;
+	left: 40%;
+	transform: translateY(-50%);
 }
-.backMenuBtn{
-    position: absolute;
-    font-family: 'Faster One', cursive;
-    width: 8%;
-    top: 94%;
-    left: 90%;
-    transform: translateY(-50%);
+.backMenuBtn {
+	position: absolute;
+	font-family: "Faster One", cursive;
+	width: 8%;
+	top: 94%;
+	left: 90%;
+	transform: translateY(-50%);
 }
-.resumeBtn{
-    position: absolute;
-    font-family: 'Faster One', cursive;
-    width: 12%;
-    top: 94%;
-    left: 2%;
-    transform: translateY(-50%);
-}
-
-.col-sm-6{
-    position: relative;
-    font-family: 'Orbitron', sans-serif;
-    top: 50%;
+.resumeBtn {
+	position: absolute;
+	font-family: "Faster One", cursive;
+	width: 12%;
+	top: 94%;
+	left: 2%;
+	transform: translateY(-50%);
 }
 
-
-#Title{
-    position: relative;
-    font-family: 'Faster One', cursive;
-    color: #ffffff;
-    top: 15%;
-    transform: translateY(-50%);
-}
-#Pause{
-    font-family: 'Faster One', cursive;
-    color: #ffffff;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-.cardsBoxes{
-    position: relative;
-    top: 5%;
-}
-.wasdImg1{
-    position: relative;
-    float: left;
-    height: 39%;
-    width: 39%;
-    top: 15px;
+.col-sm-6 {
+	position: relative;
+	font-family: "Orbitron", sans-serif;
+	top: 50%;
 }
 
-.wasdImg2{
-    position: relative;
-    float: right;
-    height: 41%;
-    width: 41%;
-    bottom: 17px;
-    
+#Title {
+	position: relative;
+	font-family: "Faster One", cursive;
+	color: #ffffff;
+	top: 15%;
 }
-.controlerImg{
-    position: relative;
-    left: 29%;
+#Pause {
+	font-family: "Faster One", cursive;
+	color: #ffffff;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 }
-.card-boady2{
-    position: relative;
+.cardsBoxes {
+	position: relative;
+	top: 5%;
 }
-
-.canvasCard{
-    position: relative;
-    height: 50%;
-    width: 60%;
-    left: 20%;
-    margin-top: 3%;
-}
-.canvasCardPause{
-    position: relative;
-    height: 50%;
-    width: 60%;
-    left: 20%;
-    margin-top: 3%;
-    filter: brightness(50%);
+.wasdImg1 {
+	position: relative;
+	float: left;
+	height: 39%;
+	width: 39%;
+	top: 15px;
 }
 
-.leaderboardsCard{
-    position: relative;
-    width: 50%;
-    top: 150px;
+.wasdImg2 {
+	position: relative;
+	float: right;
+	height: 41%;
+	width: 41%;
+	bottom: 17px;
+}
+.controlerImg {
+	position: relative;
+	left: 29%;
+}
+.card-boady2 {
+	position: relative;
+}
+
+.canvasCard {
+	position: relative;
+	height: 50%;
+	width: 60%;
+	left: 20%;
+	margin-top: 3%;
+}
+.canvasCardPause {
+	position: relative;
+	height: 50%;
+	width: 60%;
+	left: 20%;
+	margin-top: 3%;
+	filter: brightness(50%);
+}
+
+.leaderboardsCard {
+	position: relative;
+	width: 50%;
+	top: 150px;
+}
+.headerCtrl {
+	height: auto;
+	width: auto;
+	text-align: center;
 }
 
 //Bootstrap sass files
-@import "../../node_modules/bootstrap/scss/bootstrap.scss"; 
+@import "../../node_modules/bootstrap/scss/bootstrap.scss";
