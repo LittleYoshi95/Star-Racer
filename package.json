@@ -11,6 +11,7 @@
     "gulp": "^3.9.1",
     "gulp-sass": "^4.0.1",
     "jquery": "^3.3.1",
+    "natives": "^1.1.6",
     "popper.js": "^1.14.4",
     "socket.io": "^2.1.1"
   },
