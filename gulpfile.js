@@ -6,6 +6,7 @@ var app = express();
 var http = require("http").Server(app);
 var io = require("socket.io")(http);
 var world = require("./src/js/server_world.js");
+var fs = require("fs");
 
 app.use(express.static("src"));
 
@@ -93,6 +94,12 @@ io.on("connection", function (socket) {
 		io.emit("removeOtherPlayer", player);
 		world.removePlayer(player);
 	});
+	socket.on("storeTimes", function (data) {
+		console.log("updating times leaderboard json file...");
+		var newJSON = JSON.stringify(data, null, 2);
+		fs.writeFileSync("./src/bestTimes.json", newJSON);
+		console.log("done, file updated with new info");
+	});
 });
 
 var port = process.env.OPENSHIFT_NODEJS_PORT || 8080;
@@ -120,7 +127,7 @@ gulp.task("js", function () {
 			"node_modules/bootstrap/dist/js/bootstrap.min.js",
 			"node_modules/jquery/dist/jquery.min.js",
 			"node_modules/popper.js/dist/umd/popper.min.js",
-			"node_modules/socket.io-client/dist/socket.io.js",
+			"node_modules/socket.io-client/dist/socket.io.js"
 		])
 		.pipe(gulp.dest("src/js"))
 		.pipe(browserSync.stream());

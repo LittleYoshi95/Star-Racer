@@ -4,10 +4,15 @@ var camera;
 var renderer;
 var controls;
 var objects = [];
-var clock;
+var clock, timer;
+var pausedTimer;
 var deltaTime;
 var keys = {};
 var socket;
+var timerContainerElem, timerElem;
+var timerLabel;
+var pauseElem;
+var finishLineElem, finishTagElem, finishTimeElem;
 
 var player, playerId, moveSpeed, turnSpeed;
 
@@ -16,14 +21,26 @@ var playerData;
 var otherPlayers = [],
 	otherPlayersId = [];
 
+var meta;
+
 var acceleration = 0;
 var reverseAcceleration = 0;
 var steeringAcceleration = 0;
+var gravity = 0;
 
 var objetosConColision = [];
-var rayCaster;
+var rayCaster, rayCasterFloor;
 
 var isWorldReady = [false];
+var finishedLap;
+var isPaused = false;
+
+var render;
+
+var yourTime = {
+	tag: "",
+	time: ""
+};
 
 $(document).ready(function () {
 	socket = io();
@@ -53,6 +70,7 @@ var loadWorld = function () {
 	setupScene();
 
 	rayCaster = new THREE.Raycaster();
+	rayCasterFloor = new THREE.Raycaster();
 
 	//var loadFBX = new FBXLoader();
 
@@ -66,38 +84,54 @@ var loadWorld = function () {
 		objetosConColision.push(pista);
 
 		isWorldReady[0] = true;
+		setTimeout(() => {
+			timer.start();
+		}, 2500);
 	});
-	/*
-    loadOBJWithMTL("assets/models/", "SciFi_Fighter_AK5.obj", "SciFi_Fighter_AK5.mtl", (object) => {
-        nave = object;
 
-        nave.position.z = 0;
-
-        nave.rotation.y = THREE.Math.degToRad(180);
-
-        nave.scale.set(0.01,0.01,0.01);
-
-        scene.add(nave);
-        isWorldReady[1] = true;
-    });
-    */
-	render();
+	var metaGeo = new THREE.BoxGeometry(80, 15, 20);
+	var metaMat = new THREE.MeshBasicMaterial({
+		color: 0xff0000,
+		opacity: 0.5,
+		transparent: true
+	});
+	meta = new THREE.Mesh(metaGeo, metaMat);
+	meta.position.x = -10;
+	meta.position.y = 5;
+	meta.position.z = -140;
+	meta.geometry.computeBoundingBox();
+	scene.add(meta);
 
 	document.addEventListener("keydown", onKeyDown);
 	document.addEventListener("keyup", onKeyUp);
+	document.getElementById("resumeBtn").addEventListener("click", resumeGame);
+	document.getElementById("panelSaveBtn").addEventListener("click", saveTime);
+	document
+		.getElementById("panelRetryBtn")
+		.addEventListener("click", restartGame);
+	//pauseExitBtn.addEventListener("click", exitGame);
 
 	function onKeyDown(event) {
-		keys[String.fromCharCode(event.keyCode)] = true;
+		if (event.keyCode !== 27) {
+			keys[String.fromCharCode(event.keyCode)] = true;
+		} else {
+			keys["ESC"] = true;
+		}
 	}
 	function onKeyUp(event) {
 		keys[String.fromCharCode(event.keyCode)] = false;
+		keys["ESC"] = false;
 	}
 
-	function render() {
+	render = function () {
+		if (isPaused) return;
+
 		requestAnimationFrame(render);
 
 		if (player) {
 			updateCameraPosition();
+
+			updateTimer();
 
 			checkKeysStates();
 
@@ -106,14 +140,23 @@ var loadWorld = function () {
 
 		renderer.clear();
 		renderer.render(scene, camera);
-	}
+	};
 
 	function setupScene() {
 		container = document.getElementById("container");
+		timerContainerElem = document.getElementById("timer");
+		timerElem = document.createElement("div");
+		timerElem.textContent = "00:00";
+		pauseElem = document.getElementById("pause");
+		pauseResumeBtn = document.getElementById("resumeBtn");
+		finishLineElem = document.getElementById("goalLine-panel");
+		finishTagElem = document.getElementById("panelTagTxt");
+		finishTimeElem = document.getElementById("panelTimeTxt");
+		//pauseExitBtn = document.getElementById("exitBtn");
 		var visibleSize = { width: window.innerWidth, height: window.innerHeight };
 		clock = new THREE.Clock();
+		timer = new THREE.Clock(false);
 		scene = new THREE.Scene();
-		nave = new THREE.Object3D();
 		camera = new THREE.PerspectiveCamera(
 			75,
 			visibleSize.width / visibleSize.height,
@@ -149,16 +192,18 @@ var loadWorld = function () {
 			texture = loader.load("./assets/milkyWay.jpg");
 
 		var material = new THREE.MeshPhongMaterial({
-			map: texture,
+			map: texture
 		});
 
 		var sky = new THREE.Mesh(skyGeo, material);
 		sky.material.side = THREE.BackSide;
 		scene.add(sky);
 
+		timerContainerElem.appendChild(timerElem);
 		container.appendChild(renderer.domElement);
 		document.body.appendChild(container);
 	}
+	render();
 };
 
 function loadOBJWithMTL(path, objFile, mtlFile, onLoadCallback) {
@@ -191,6 +236,7 @@ var createPlayer = function (data) {
 			player.rotation.y = THREE.Math.degToRad(180);
 
 			player.scale.set(data.sizeX, data.sizeY, data.sizeZ);
+			player.updateMatrixWorld();
 
 			playerId = data.playerId;
 			moveSpeed = data.speed;
@@ -206,8 +252,9 @@ var createPlayer = function (data) {
 				new THREE.Vector3(1, 0, 0),
 				new THREE.Vector3(-1, 0, 0),
 				new THREE.Vector3(0, 0, 1),
-				new THREE.Vector3(0, 0, -1),
+				new THREE.Vector3(0, 0, -1)
 			];
+			player.rayosFloor = [new THREE.Vector3(0, -1, 0)];
 
 			camera.lookAt(player.position);
 		}
@@ -274,6 +321,13 @@ var checkKeysStates = function () {
 		socket.emit("updatePosition", playerData);
 	}
 
+	if (keys["ESC"]) {
+		isPaused = true;
+		pausedTimer = timer.getElapsedTime();
+		timer.stop();
+		pauseElem.style.display = "block";
+	}
+
 	if (!accel) {
 		if (acceleration != 0) {
 			player.position.x -=
@@ -322,7 +376,82 @@ var checkKeysStates = function () {
 				colBol = true;
 			}
 		}
+
+		for (var i = 0; i < player.rayosFloor.length; i++) {
+			rayCasterFloor.set(player.position, player.rayosFloor[i]);
+			var colisionFloor = rayCasterFloor.intersectObjects(
+				objetosConColision,
+				true
+			);
+			if (colisionFloor.length == 0) {
+				console.log("no hay suelo D:");
+				gravity += 1 * deltaTime;
+				player.position.y -= gravity;
+			}
+		}
+
+		finishedLap = goalLine(player, meta);
+		if (finishedLap) {
+			console.log("dio una vuelta o:");
+			timer.stop();
+			finishLineElem.style.display = "block";
+			finishTimeElem.textContent = timerLabel;
+		}
+
+		if (player.position.y <= -250) {
+			respawn();
+		}
 	}
+};
+
+var updateTimer = function () {
+	if (timer.running) {
+		const miliSeconds = timer.getElapsedTime().toFixed(3) * 1000;
+		const seconds = ((miliSeconds % 60000) / 1000).toFixed(0);
+		const min = Math.floor(miliSeconds / 60000);
+		timerLabel = `${(min < 10 ? "0" : "") + min}:${
+			(seconds < 10 ? "0" : "") + seconds
+		}`;
+		timerElem.textContent = timerLabel;
+	}
+};
+
+var goalLine = function (nave, meta) {
+	var boundingBoxNav = new THREE.Box3();
+	boundingBoxNav.setFromObject(nave);
+	boundingBoxNav.applyMatrix4(nave.matrixWorld);
+	var boundingBoxMeta = meta.geometry.boundingBox.clone();
+	boundingBoxMeta.applyMatrix4(meta.matrixWorld);
+
+	return boundingBoxNav.intersectsBox(boundingBoxMeta);
+};
+
+var resumeGame = function () {
+	console.log("resumed pog");
+	timer.start();
+	timer.elapsedTime = pausedTimer;
+	pauseElem.style.display = "none";
+	isPaused = false;
+	render();
+};
+
+var restartGame = function () {
+	console.log("restarted pog");
+	respawn();
+	timer.start();
+	finishLineElem.style.display = "none";
+};
+
+var respawn = function () {
+	player.position.x = -2;
+	player.position.y = 2;
+	player.position.z = -80;
+	player.rotation.y = THREE.Math.degToRad(180);
+
+	acceleration = 0;
+	reverseAcceleration = 0;
+	steeringAcceleration = 0;
+	gravity = 0;
 };
 
 var addOtherPlayer = function (data) {
@@ -369,4 +498,19 @@ var playerForId = function (id) {
 		}
 	}
 	return otherPlayers[index];
+};
+
+var saveTime = function () {
+	var timeData;
+	$.getJSON("bestTimes.json", function (data, status) {
+		console.log(status);
+		console.log(data);
+		timeData = data;
+		yourTime.tag = finishTagElem.value;
+		yourTime.time = timerLabel;
+		timeData.bestTimes.push(yourTime);
+		console.log(timeData);
+		socket.emit("storeTimes", timeData);
+		finishLineElem.style.display = "none";
+	});
 };

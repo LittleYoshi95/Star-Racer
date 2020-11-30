@@ -3,7 +3,7 @@ $bg-img: url("../assets/sci-fi1.jpg");
 $canvas-size-img: url("../assets/BlueFalconX.jpg");
 
 $theme-colors: (
-	"primary": #420099,
+	"primary": #420099
 );
 
 body html {
@@ -154,6 +154,120 @@ body html {
 	height: auto;
 	width: auto;
 	text-align: center;
+}
+
+#timer {
+	position: absolute; /* let us position ourself inside the container */
+	left: 0; /* make our position the top left of the container */
+	top: 100px;
+	color: white;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	pointer-events: none;
+}
+#timer > div {
+	position: absolute; /* let us position them inside the container */
+	left: 80px !important; /* make their default position the top left of the container */
+	top: 0;
+	font-size: xx-large;
+	font-family: monospace;
+	user-select: none; /* don't let the text get selected */
+	text-shadow: -1px -1px 0 #000, 0 -1px 0 #000, 1px -1px 0 #000, 1px 0 0 #000,
+		1px 1px 0 #000, 0 1px 0 #000, -1px 1px 0 #000, -1px 0 0 #000; /* create a black outline */
+}
+
+#pause {
+	position: absolute; /* let us position ourself inside the container */
+	margin: auto;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	color: white;
+	display: none;
+	z-index: 200;
+}
+
+.pauseContainer {
+	width: 30%;
+	height: 50%;
+	margin: 200px auto auto;
+	padding-top: 6em;
+	background-color: rgba(0, 0, 0, 0.7);
+}
+
+.pauseTxt {
+	margin: auto 20px auto;
+	font-size: 3em;
+	font-family: "Faster One", cursive;
+}
+
+.pauseBtnContainer {
+	width: 50%;
+	height: 100%;
+	margin: auto;
+	padding-top: 5em;
+	text-align: center;
+	overflow: hidden;
+}
+
+.pauseBtns {
+	display: block;
+	min-width: 250px;
+	margin: 2em auto auto;
+	font-family: "Faster One", cursive;
+}
+
+#goalLine-panel {
+	position: absolute; /* let us position ourself inside the container */
+	margin: auto;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	color: white;
+	display: none;
+	z-index: 200;
+}
+
+.panelContainer {
+	width: 50%;
+	height: 70%;
+	margin: 150px auto auto;
+	padding-top: 4em;
+	background-color: rgba(0, 0, 0, 0.7);
+}
+
+.panelTxt {
+	font-family: "Faster One", cursive;
+}
+
+#panelTagTxt {
+	width: 50%;
+	margin: 1.5em auto auto;
+}
+.timeLbl {
+	margin: 15px auto auto;
+	font-family: "Faster One", cursive;
+}
+
+.panelSaveLbl {
+	margin: 1.5em auto auto;
+	font-family: "Faster One", cursive;
+}
+
+.panelBtnContainer {
+	width: 50%;
+	height: 100%;
+	margin: auto;
+	text-align: center;
+	overflow: hidden;
+}
+
+.panelBtns {
+	display: block;
+	min-width: 250px;
+	margin: 2em auto auto;
+	font-family: "Faster One", cursive;
 }
 
 //Bootstrap sass files
