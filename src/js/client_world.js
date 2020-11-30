@@ -92,7 +92,7 @@ var loadWorld = function () {
 	var metaGeo = new THREE.BoxGeometry(80, 15, 20);
 	var metaMat = new THREE.MeshBasicMaterial({
 		color: 0xff0000,
-		opacity: 0.5,
+		opacity: 0.0,
 		transparent: true
 	});
 	meta = new THREE.Mesh(metaGeo, metaMat);
