@@ -26,11 +26,11 @@
 	<body>
 		<div class="container-fluid backgroundimg">
 			<div class="headerCtrl">
-				<h1 id="Title" class="display-1 text-center">Controles</h1>
+				<h1 id="Title" class="display-1 text-center">Lobby</h1>
 			</div>
 			<div class="row cardsBoxes">
 				<div class="col-sm-6">
-					<div class="card">
+					<div class="card cardBgColor">
 						<div class="card-body">
 							<h5 class="card-title text-center">Teclado</h5>
 							<div class="card-body1">
@@ -43,14 +43,23 @@
 					</div>
 				</div>
 				<div class="col-sm-6">
-					<div class="card">
+					<div class="card cardBgColor">
 						<div class="card-body">
-							<h5 class="card-title text-center">Joystick</h5>
-							<div class="card-body2">
+							<h5 class="card-title text-center">Selecciona el nivel</h5>
+							<div class="form-group">
+								<label for="exampleFormControlSelect1">Nivel</label>
+								<select class="form-control" id="lvlSelect">
+									<option value="Milk" selected>Milky Way</option>
+									<option value="Sun">Sunset Sky</option>
+								</select>
+							</div>
+							<div class="text-center">
 								<img
-									src="/assets/genControler.jpg"
-									class="controlerImg"
-									alt=""
+									src="/assets/milkyWay.jpg"
+									alt="milkyWay"
+									width="278"
+									height="278"
+									id="lvlImg"
 								/>
 							</div>
 						</div>
@@ -58,16 +67,20 @@
 				</div>
 			</div>
 			<div class="row">
-				<a href="game-screen.html">
-					<button type="button" class="btn btn-primary btn-lg soloBtn">
-						Solo
-					</button>
-				</a>
-				<a href="game-screen.html">
-					<button type="button" class="btn btn-primary btn-lg multiplayerBtn">
-						Multiplayer
-					</button>
-				</a>
+				<button
+					type="button"
+					id="soloBtn"
+					class="btn btn-primary btn-lg soloBtn playBtn"
+				>
+					Solo
+				</button>
+				<button
+					type="button"
+					id="multiBtn"
+					class="btn btn-primary btn-lg multiplayerBtn playBtn"
+				>
+					Multiplayer
+				</button>
 				<a href="index.html">
 					<button type="button" class="btn btn-primary btn-lg backMenuBtn">
 						Back
@@ -79,5 +92,6 @@
 		<script src="/js/jquery.min.js"></script>
 		<script src="/js/popper.min.js"></script>
 		<script src="/js/bootstrap.min.js"></script>
+		<script src="/js/lobby.js"></script>
 	</body>
 </html>

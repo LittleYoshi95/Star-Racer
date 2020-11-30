@@ -2,6 +2,7 @@ $(() => {
 	var timeData;
 	var top10;
 	var leaderboardElem = document.getElementById("leaderboardList");
+
 	$.getJSON("bestTimes.json", function (data, status) {
 		timeData = data;
 		top10 = timeData.bestTimes.sort((a, b) => {

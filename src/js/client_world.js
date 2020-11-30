@@ -152,7 +152,10 @@ var loadWorld = function () {
 		finishLineElem = document.getElementById("goalLine-panel");
 		finishTagElem = document.getElementById("panelTagTxt");
 		finishTimeElem = document.getElementById("panelTimeTxt");
-		//pauseExitBtn = document.getElementById("exitBtn");
+
+		var localLvl = location.search.substring(1);
+		console.log(localLvl);
+
 		var visibleSize = { width: window.innerWidth, height: window.innerHeight };
 		clock = new THREE.Clock();
 		timer = new THREE.Clock(false);
@@ -189,7 +192,7 @@ var loadWorld = function () {
 
 		var skyGeo = new THREE.SphereGeometry(5000, 200, 500);
 		var loader = new THREE.TextureLoader(),
-			texture = loader.load("./assets/milkyWay.jpg");
+			texture = loader.load(`/assets/${localLvl}`);
 
 		var material = new THREE.MeshPhongMaterial({
 			map: texture

@@ -89,6 +89,9 @@ body html {
   left: 50%;
   transform: translate(-50%, -50%); }
 
+.cardBgColor {
+  background-color: rgba(255, 255, 255, 0.322) !important; }
+
 .cardsBoxes {
   position: relative;
   top: 5%; }
@@ -157,7 +160,7 @@ body html {
   left: 80px !important;
   /* make their default position the top left of the container */
   top: 0;
-  font-size: xx-large;
+  font-size: 3em;
   font-family: monospace;
   user-select: none;
   /* don't let the text get selected */
@@ -245,6 +248,14 @@ body html {
   display: block;
   min-width: 250px;
   margin: 2em auto auto;
+  font-family: "Faster One", cursive; }
+
+.shareBtn {
+  position: absolute;
+  width: 40%;
+  top: 70%;
+  left: 30%;
+  margin: auto;
   font-family: "Faster One", cursive; }
 
 /*!

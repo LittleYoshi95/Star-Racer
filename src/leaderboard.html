@@ -18,6 +18,11 @@
 		/>
 		<link rel="stylesheet" href="/css/bootstrap.css" />
 		<link rel="stylesheet" href="/css/styles.css" />
+		<script type="text/javascript">
+			function shareFB() {
+				shareTime();
+			}
+		</script>
 	</head>
 	<body>
 		<div class="container-fluid backgroundimg">
@@ -29,6 +34,14 @@
 				</div>
 			</div>
 			<div class="row">
+				<button
+					type="button"
+					id="shareTimeBtn"
+					class="btn btn-primary btn-lg shareBtn"
+					onclick="shareFB();"
+				>
+					Share on FB
+				</button>
 				<a href="index.html">
 					<button type="button" class="btn btn-primary btn-lg backMenuBtn">
 						Back
@@ -41,5 +54,6 @@
 		<script src="/js/popper.min.js"></script>
 		<script src="/js/bootstrap.min.js"></script>
 		<script src="/js/leaderBoard.js"></script>
+		<script src="/js/mifacebook.js"></script>
 	</body>
 </html>
