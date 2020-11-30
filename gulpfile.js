@@ -103,7 +103,7 @@ io.on("connection", function (socket) {
 });
 
 var port = process.env.PORT || 8080;
-var ip_address = process.env.IP || "127.0.0.1";
+var ip_address = "0.0.0.0";
 
 //Compile SASS into CSS & auto-inject into browsers
 gulp.task("sass", function () {
