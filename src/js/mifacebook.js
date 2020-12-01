@@ -23,7 +23,7 @@ var shareTime = function () {
 	FB.ui(
 		{
 			method: "share",
-			href: "https://google.com",
+			href: "https://star-racer.herokuapp.com/",
 			hashtag: "#zooooom",
 			quote: "Ven y vence mi tiempo! >:^)"
 		},

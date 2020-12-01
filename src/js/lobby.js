@@ -16,8 +16,10 @@ $(() => {
 	selectElem.addEventListener("change", (event) => {
 		if (event.target.value == "Milk") {
 			imgElem.src = "/assets/milkyWay.jpg";
-		} else {
+		} else if (event.target.value == "Sun") {
 			imgElem.src = "/assets/bigSunset.jpg";
+		} else if (event.target.value == "City") {
+			imgElem.src = "/assets/cityNight.jpg";
 		}
 	});
 });

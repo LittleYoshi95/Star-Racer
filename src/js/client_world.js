@@ -13,6 +13,7 @@ var timerContainerElem, timerElem;
 var timerLabel;
 var pauseElem;
 var finishLineElem, finishTagElem, finishTimeElem;
+var particleSystem;
 
 var player, playerId, moveSpeed, turnSpeed;
 
@@ -72,8 +73,6 @@ var loadWorld = function () {
 	rayCaster = new THREE.Raycaster();
 	rayCasterFloor = new THREE.Raycaster();
 
-	//var loadFBX = new FBXLoader();
-
 	loadOBJWithMTL("assets/models/", "Pista.obj", "Pista.mtl", (pista) => {
 		pista.position.y = -473;
 		pista.position.x = 190;
@@ -109,7 +108,6 @@ var loadWorld = function () {
 	document
 		.getElementById("panelRetryBtn")
 		.addEventListener("click", restartGame);
-	//pauseExitBtn.addEventListener("click", exitGame);
 
 	function onKeyDown(event) {
 		if (event.keyCode !== 27) {
@@ -168,7 +166,6 @@ var loadWorld = function () {
 		);
 		camera.position.z = 20;
 		camera.up = new THREE.Vector3(0, 1, 0);
-		//camera.rotation.x = THREE.Math.degToRad(-25);
 
 		renderer = new THREE.WebGLRenderer({ precision: "mediump" });
 		renderer.setClearColor(new THREE.Color(0, 0, 0));
@@ -178,17 +175,9 @@ var loadWorld = function () {
 		var ambientLight = new THREE.AmbientLight(new THREE.Color(1, 1, 1), 1.0);
 		scene.add(ambientLight);
 
-		var directionalLight = new THREE.DirectionalLight(
-			new THREE.Color(1, 1, 1),
-			0.1
-		);
-		directionalLight.position.set(0, 15, 15);
+		var directionalLight = new THREE.PointLight(0xffffff, 0.5, 0, 1);
+		directionalLight.position.set(80, 50, 100);
 		scene.add(directionalLight);
-
-		/*var grid = new THREE.GridHelper(50, 10, 0xffffff, 0xffffff);
-        grid.position.y = -1;
-        scene.add(grid);
-        */
 
 		var skyGeo = new THREE.SphereGeometry(5000, 200, 500);
 		var loader = new THREE.TextureLoader(),
